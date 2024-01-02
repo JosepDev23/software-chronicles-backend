@@ -1,5 +1,14 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common'
 import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common'
+import {
+  ApiBearerAuth,
   ApiBody,
   ApiOperation,
   ApiParam,
@@ -9,8 +18,11 @@ import {
 } from '@nestjs/swagger'
 import EntryDto from './dtos/entry.dto'
 import { EntryService } from './entry.service'
+import { JwtAuthGuard } from '../jwt/jwt-auth.guard'
 
+@ApiBearerAuth()
 @ApiTags('entry')
+@UseGuards(JwtAuthGuard)
 @Controller('entry')
 export class EntryController {
   constructor(private readonly entryService: EntryService) {}

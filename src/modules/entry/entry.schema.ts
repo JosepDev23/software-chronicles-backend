@@ -1,4 +1,4 @@
-import { Prop, Schema } from '@nestjs/mongoose'
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { ApiProperty } from '@nestjs/swagger'
 
 @Schema()
@@ -15,3 +15,5 @@ export default class Entry {
   @ApiProperty()
   body: string
 }
+
+export const EntrySchema = SchemaFactory.createForClass(Entry)
