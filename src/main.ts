@@ -6,6 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule)
 
   const swaggerConfig = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Software Chronicles API')
     .setDescription('Documentation')
     .setVersion('0.1')
