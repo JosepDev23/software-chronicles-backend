@@ -14,7 +14,7 @@ export class EntryService {
     return query.exec()
   }
 
-  async findLatest(limit: number = 20, offset: number = 0) {
+  async findLastest(limit: number = 20, offset: number = 0) {
     const query = this.entryModel
       .find()
       .sort({ date: -1 })
