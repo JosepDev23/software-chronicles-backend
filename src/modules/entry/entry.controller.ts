@@ -20,13 +20,13 @@ import EntryDto from './dtos/entry.dto'
 import { EntryService } from './entry.service'
 import { JwtAuthGuard } from '../jwt/jwt-auth.guard'
 
-@ApiBearerAuth()
 @ApiTags('entry')
-@UseGuards(JwtAuthGuard)
 @Controller('entry')
 export class EntryController {
   constructor(private readonly entryService: EntryService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Get('/userId/:userId')
   @ApiOperation({ summary: 'Get entries by userId' })
   @ApiResponse({ status: 200, description: 'Entries list', type: [EntryDto] })
@@ -78,6 +78,8 @@ export class EntryController {
     return this.entryService.findLastest(limit, offset)
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   @ApiOperation({ summary: 'Create a new entry' })
   @ApiResponse({
