@@ -28,7 +28,7 @@ export class EntryController {
   constructor(private readonly entryService: EntryService) {}
 
   @Get('/userId/:userId')
-  @ApiOperation({ summary: 'Get entry by userId' })
+  @ApiOperation({ summary: 'Get entries by userId' })
   @ApiResponse({ status: 200, description: 'Entries list', type: [EntryDto] })
   @ApiParam({
     name: 'userId',
@@ -54,6 +54,28 @@ export class EntryController {
     @Query('offset') offset?: number,
   ) {
     return this.entryService.findByUserId(userId, limit, offset)
+  }
+
+  @Get('/lastest')
+  @ApiOperation({ summary: 'Get lastest entries' })
+  @ApiResponse({ status: 200 })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    description: 'Limit by page',
+  })
+  @ApiQuery({
+    name: 'offset',
+    required: false,
+    type: Number,
+    description: 'Initial index for pagination',
+  })
+  async getLastestEntries(
+    @Query('limit') limit?: number,
+    @Query('offset') offset?: number,
+  ) {
+    return this.entryService.findLastest(limit, offset)
   }
 
   @Post()

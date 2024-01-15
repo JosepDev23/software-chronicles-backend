@@ -10,7 +10,17 @@ export class EntryService {
 
   async findByUserId(userId: string, limit: number = 20, offset: number = 0) {
     const filter: FilterQuery<Entry> = { userId: new RegExp(userId, 'i') }
-    return this.entryModel.find(filter).limit(limit).skip(offset).exec()
+    const query = this.entryModel.find(filter).limit(limit).skip(offset)
+    return query.exec()
+  }
+
+  async findLatest(limit: number = 20, offset: number = 0) {
+    const query = this.entryModel
+      .find()
+      .sort({ date: -1 })
+      .limit(limit)
+      .skip(offset)
+    return query.exec()
   }
 
   async save(entryDto: EntryDto): Promise<Entry> {
